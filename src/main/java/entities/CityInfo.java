@@ -13,6 +13,10 @@ import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
+/**
+ *
+ * @author Claus
+ */
 
 @Entity
 @NamedQuery(name = "CityInfo.deleteAllRows", query = "DELETE from CityInfo")
