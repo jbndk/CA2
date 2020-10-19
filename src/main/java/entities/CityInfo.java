@@ -15,7 +15,7 @@ import javax.persistence.OneToMany;
 
 /**
  *
- * @author Claus
+ * @author  Findinge
  */
 
 @Entity
