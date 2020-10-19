@@ -1,10 +1,14 @@
 package entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQuery;
 
 @Entity
@@ -16,15 +20,18 @@ public class Hobby implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String hobbyName;
-    private String hobbyDescription;
+    private String name;
+    private String description;
+    
+     @ManyToMany(mappedBy = "hobbies", cascade = {CascadeType.PERSIST})
+    private List<Person> persons = new ArrayList();
     
      public Hobby() {
     }
 
-    public Hobby(String hobbyName, String hobbyDescription) {
-        this.hobbyName = hobbyName;
-        this.hobbyDescription = hobbyDescription;
+    public Hobby(String name, String description) {
+        this.name = name;
+        this.description = description;
     }
      
     public Long getId() {
@@ -35,20 +42,20 @@ public class Hobby implements Serializable {
         this.id = id;
     }
 
-    public String getHobbyName() {
-        return hobbyName;
+    public String getName() {
+        return name;
     }
 
-    public void setHobbyName(String hobbyName) {
-        this.hobbyName = hobbyName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getHobbyDescription() {
-        return hobbyDescription;
+    public String getDescription() {
+        return description;
     }
 
-    public void setHobbyDescription(String hobbyDescription) {
-        this.hobbyDescription = hobbyDescription;
+    public void setHobbyDescription(String description) {
+        this.description = description;
     }
 
    
