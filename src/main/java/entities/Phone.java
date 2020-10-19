@@ -13,7 +13,7 @@ import javax.persistence.NamedQuery;
 
 /**
  *
- * @author Claus
+ * @author Claus Findinge
  */
 
 @Entity
