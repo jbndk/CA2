@@ -1,19 +1,28 @@
 package entities;
 
+import dto.PersonDTO;
+import dto.PersonsDTO;
+import facades.PersonFacade;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import utils.EMF_Creator;
 
 /**
  *
  * @author claes
  */
+
 public class Tester {
-
+    
+        private static final EntityManagerFactory EMFC = EMF_Creator.createEntityManagerFactory();
+        private static final PersonFacade FACADE =  PersonFacade.getPersonFacade(EMFC);
+                
     public static void main(String[] args) {
-
+        
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("pu");
 
         EntityManager em = emf.createEntityManager();
@@ -54,8 +63,8 @@ public class Tester {
         em.persist(p1);
         em.persist(p2);
         em.getTransaction().commit();
- 
         */
+      
         TypedQuery<Phone> q1 = em.createQuery("SELECT p FROM Phone p", Phone.class);
         
         List<Phone> phones = q1.getResultList();
@@ -64,16 +73,18 @@ public class Tester {
             System.out.println(p.getPerson().getFirstName() + ", " + p.getPerson().getLastname() + ", Numbers: " + p.getNumber());
         });
         
-        /*
-        TypedQuery<Person> q2 = em.createQuery("SELECT p FROM Person p", Person.class);
         
-        List<Person> persons = q2.getResultList();
+        PersonsDTO pdto = FACADE.getAllPersons();
         
-        persons.forEach(p -> {
-            System.out.println("Email: "+p.getEmail()+", Name: "+p.getFirstName()+" "+p.getLastname()+", Address: "+p.getAddress().getStreet()+
-            ", "+p.getAddress().getCityinfo().getCity()+", "+p.getAddress().getCityinfo().getZip()+", Tel.nos: "+p.getTelNos().toString());
+        pdto.getAll().forEach(p -> {
+            System.out.println("First name: " + p.getfName() + ". Last name: " + p.getlName());
         });
-        */
+        
+        PersonDTO pdto2 = FACADE.getPersonByPhone(7777);
+        
+        System.out.println("First name by phone: " + pdto2.getfName() + ". Address: " + pdto2.getStreet());
+        
+             
     }
 
 }
