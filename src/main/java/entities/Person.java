@@ -1,10 +1,17 @@
 package entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -20,6 +27,15 @@ public class Person implements Serializable {
     private String email;
     private String firstName;
     private String lastname;
+    
+    @OneToMany(mappedBy = "person" , cascade = CascadeType.PERSIST, fetch=FetchType.EAGER)
+    List<Phone> telNos = new ArrayList<>();
+    
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private Address address;
+    
+    @ManyToMany(mappedBy="persons", cascade=CascadeType.PERSIST)
+    List<Hobby> hobbies;
 
     public Person() {
     }
@@ -28,8 +44,28 @@ public class Person implements Serializable {
         this.email = email;
         this.firstName = firstName;
         this.lastname = lastname;
+        this.telNos = new ArrayList<>();
+        this.hobbies = new ArrayList<>();
     }
 
+    public List<Phone> getTelNos() {
+        return telNos;
+    }
+
+    public void addTelNo(Phone phone) {
+        this.telNos.add(phone);
+        if(phone != null) {
+            phone.setPerson(this);
+        }
+    }
+    
+    public void addHobby(Hobby hobby) {
+        if (hobby != null) {
+        this.hobbies.add(hobby);
+        hobby.getPersons().add(this);
+        }
+    }
+    
     public String getEmail() {
         return email;
     }
@@ -37,6 +73,16 @@ public class Person implements Serializable {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+    
+    
 
     public String getFirstName() {
         return firstName;
@@ -53,8 +99,6 @@ public class Person implements Serializable {
     public void setLastname(String lastname) {
         this.lastname = lastname;
     }
-    
-    
 
     public int getId() {
         return id;
@@ -87,3 +131,4 @@ public class Person implements Serializable {
     }
     
 }
+

@@ -18,16 +18,16 @@ public class Address implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
     private String street;
     private String additionalInfo;
     
-     @ManyToOne(cascade = {CascadeType.PERSIST})
-    private CityInfo cityInfo;
-
-    @OneToMany(mappedBy = "address", cascade = {CascadeType.PERSIST})
-    private List<Person> persons = new ArrayList();
+    @ManyToOne( cascade = CascadeType.PERSIST )
+    private CityInfo cityinfo;
+    
+    @OneToMany(mappedBy = "address" , cascade = CascadeType.PERSIST)
+    List<Person> persons = new ArrayList<Person>();
 
     public Address() {
 
@@ -37,8 +37,31 @@ public class Address implements Serializable {
         this.street = street;
         this.additionalInfo = additionalInfo;
     }
-    
 
+    public CityInfo getCityinfo() {
+        return cityinfo;
+    }
+
+    public void setCityinfo(CityInfo cityinfo) {
+        this.cityinfo = cityinfo;
+    }
+    
+    public void addPerson(Person person) {
+        this.persons.add(person);
+            if (person != null) {
+                person.setAddress(this);
+            }
+    }
+
+    public List<Person> getPersons() {
+        return persons;
+    }
+
+    public void setPersons(List<Person> persons) {
+        this.persons = persons;
+    }
+    
+    
     public String getStreet() {
         return street;
     }
@@ -55,11 +78,11 @@ public class Address implements Serializable {
         this.additionalInfo = additionalInfo;
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
     

@@ -3,7 +3,6 @@ package entities;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,44 +17,53 @@ public class Hobby implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
 
-    private String name;
-    private String description;
+    private String hobbyName;
+    private String hobbyDescription;
     
-     @ManyToMany(mappedBy = "hobbies", cascade = {CascadeType.PERSIST})
-    private List<Person> persons = new ArrayList();
+    @ManyToMany
+    private List<Person> persons;
     
      public Hobby() {
     }
 
-    public Hobby(String name, String description) {
-        this.name = name;
-        this.description = description;
+    public Hobby(String hobbyName, String hobbyDescription) {
+        this.hobbyName = hobbyName;
+        this.hobbyDescription = hobbyDescription;
+        persons = new ArrayList<>();
     }
      
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getHobbyName() {
+        return hobbyName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setHobbyName(String hobbyName) {
+        this.hobbyName = hobbyName;
     }
 
-    public String getDescription() {
-        return description;
+    public String getHobbyDescription() {
+        return hobbyDescription;
     }
 
-    public void setHobbyDescription(String description) {
-        this.description = description;
+    public void setHobbyDescription(String hobbyDescription) {
+        this.hobbyDescription = hobbyDescription;
+    }
+
+    public List<Person> getPersons() {
+        return persons;
+    }
+
+    public void setPersons(List<Person> persons) {
+        this.persons = persons;
     }
 
    
