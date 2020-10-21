@@ -80,37 +80,32 @@ public class PersonFacade {
         }
     }
 
-    public PersonDTO addPerson(PersonDTO p) {
+    public PersonDTO addPerson(PersonDTO personDTO) {
         EntityManager em = emf.createEntityManager();
-        Person person = new Person(p.getEmail(), p.getFname(), p.getlName());
-        PersonDTO pdto = null;
         try {
+            Person p = new Person(personDTO.getfName(), personDTO.getlName(), personDTO.getEmail());
+            Address address = new Address(personDTO.getStreet());
             TypedQuery<CityInfo> query1 = em.createQuery("Select c from CityInfo c where c.zipCode = :zip", CityInfo.class);
-            query1.setParameter("zip", p.getZip());
-            CityInfo cityInfo = query1.getSingleResult();
-            Address address = new Address(p.getStreet());
-            address.setCityinfo(cityInfo);
-            Phone ph = new Phone(p.getPhNumber());
-
-            person.addTelNo(ph);
-
-            person.setAddress(address);
-
+            query1.setParameter("zip", personDTO.getZip());
+            CityInfo cityinfo = query1.getSingleResult();
+            address.setCityinfo(cityinfo);
+            p.setAddress(address);
+            
             TypedQuery<Hobby> query2 = em.createQuery("Select h from Hobby h where h.name = :name", Hobby.class);
-            query2.setParameter("name", p.getHobbyName());
+            query2.setParameter("name", personDTO.getHobbyName());
             Hobby hobby = query2.getSingleResult();
+            
+            p.addHobby(hobby);
 
-            person.addHobby(hobby);
+            p.addTelNo(new Phone(personDTO.getPhNumber()));
 
             em.getTransaction().begin();
-            em.persist(person);
+            em.persist(p);
             em.getTransaction().commit();
-            pdto = new PersonDTO(person);
 
+            return new PersonDTO(p);
         } finally {
             em.close();
         }
-        return pdto;
-
     }
 }
