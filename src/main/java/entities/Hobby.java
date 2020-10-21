@@ -39,6 +39,13 @@ public class Hobby implements Serializable {
         this.persons = new ArrayList<>();
     }
 
+    public Hobby(String name, String linkWiki, String underCathegory, String type) {
+        this.name = name;
+        this.linkWiki = linkWiki;
+        this.underCathegory = underCathegory;
+        this.type = type;
+    }
+
     public String getName() {
         return name;
     }
