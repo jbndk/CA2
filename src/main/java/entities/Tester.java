@@ -27,8 +27,24 @@ public class Tester {
         EntityManager em = emf.createEntityManager();
 
         PersonDTO pdto1 = new PersonDTO("bg@ms.com", "Bill", "Gates", "Strandvejen 1", "2900", "Skak", 1234);
+        PersonDTO pdto2 = new PersonDTO("hans@ms.com", "Hans", "Smith", "Strandvejen 48", "2100", "Skak", 1122);
+        PersonDTO pdto3 = new PersonDTO("bente@ms.com", "Bente", "Jensen", "Byvej 3", "2800", "Astrologi", 3344);
 
         FACADE.addPerson(pdto1);
+        FACADE.addPerson(pdto2);
+        FACADE.addPerson(pdto3);
+        
+        PersonsDTO persons = FACADE.getAllPersonsByHobby("Skak");
+        persons.getAll().forEach(p -> {
+            System.out.println("Persons with hobby SKAK: " + p.getfName());
+        });
+        
+        PersonsDTO persons2 = FACADE.getAllPersonsByHobby("Astrologi");
+        persons2.getAll().forEach(p -> {
+            System.out.println("Persons with hobby ASTROLOGI: " + p.getfName());
+        });
+        
+        
         
         /*
         Long antal = FACADE2.getCityCount();

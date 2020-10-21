@@ -70,7 +70,7 @@ public class PersonFacade {
         EntityManager em = getEntityManager();
         try {
 
-            TypedQuery<Person> query = em.createQuery("SELECT p FROM Person p INNER JOIN p.hobbies Hobby WHERE Hobby.hobbyName = :hobby", Person.class);
+            TypedQuery<Person> query = em.createQuery("SELECT p FROM Person p INNER JOIN p.hobbies Hobby WHERE Hobby.name = :hobby", Person.class);
             query.setParameter("hobby", hobby);
             List<Person> resultList = query.getResultList();
             PersonsDTO result = new PersonsDTO(resultList);

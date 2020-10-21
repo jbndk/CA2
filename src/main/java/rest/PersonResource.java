@@ -3,6 +3,7 @@ package rest;
 import dto.PersonDTO;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import dto.PersonsDTO;
 import exceptions.MissingInputException;
 import exceptions.PersonNotFoundException;
 import utils.EMF_Creator;
@@ -42,6 +43,14 @@ public class PersonResource {
     public String getPersonByPhone(@PathParam("phoneNumber") int id ) throws PersonNotFoundException   {
         PersonDTO personDTO = FACADE.getPersonByPhone(id);
         return GSON.toJson(personDTO);
+    }
+    
+    @GET
+    @Path("/hobby/{hobby}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getAllPersonsByHobby(@PathParam("hobby") String hobby) throws MissingInputException {
+        PersonsDTO pdtoList = FACADE.getAllPersonsByHobby(hobby);
+        return GSON.toJson(pdtoList);
     }
     
     /*
