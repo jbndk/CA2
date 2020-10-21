@@ -21,11 +21,15 @@ public class Phone implements Serializable {
     private int id;
     private int number;
     private String description;
-    
+
     @ManyToOne
     private Person person;
 
     public Phone() {
+    }
+
+    public Phone(int number) {
+        this.number = number;
     }
 
     public Person getPerson() {
@@ -35,7 +39,6 @@ public class Phone implements Serializable {
     public void setPerson(Person person) {
         this.person = person;
     }
-    
 
     public Phone(int number, String description) {
         this.number = number;
@@ -57,8 +60,6 @@ public class Phone implements Serializable {
     public void setDescription(String description) {
         this.description = description;
     }
-    
-    
 
     public int getId() {
         return id;
@@ -92,5 +93,5 @@ public class Phone implements Serializable {
     public String toString() {
         return "entities.Phone[ id=" + id + " ]";
     }
-    
+
 }
