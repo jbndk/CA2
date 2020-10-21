@@ -1,12 +1,16 @@
 package entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
 /**
@@ -14,42 +18,38 @@ import javax.persistence.OneToMany;
  * @author claes
  */
 @Entity
+@NamedQueries({
+@NamedQuery(name = "CityInfo.getAllRows", query = "SELECT c from CityInfo c")})
 public class CityInfo implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    private int zip;
+    @Column(length = 4)
+    private String zipCode;
+    @Column(length=35)
     private String city;
     
     @OneToMany(mappedBy = "cityinfo" , cascade = CascadeType.PERSIST)
     List<Address> addresses;
 
     public CityInfo() {
+        this.addresses = new ArrayList();
     }
 
-    public CityInfo(int zip, String city) {
-        this.zip = zip;
+    public CityInfo(String zipCode, String city) {
+        this.zipCode = zipCode;
         this.city = city;
+        this.addresses = new ArrayList<>();
     }
 
-    public int getZip() {
-        return zip;
-    }
-
-    public void setZip(int zip) {
-        this.zip = zip;
+    public String getZipCode() {
+        return zipCode;
     }
 
     public String getCity() {
         return city;
     }
 
-    public void setCity(String city) {
-        this.city = city;
-    }
-    
     public void addAddress(Address address) {
         this.addresses.add(address);
         if(address != null) {
@@ -60,6 +60,7 @@ public class CityInfo implements Serializable {
     public List<Address> getAddresses() {
         return addresses;
     }
+
+
     
 }
-

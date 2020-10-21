@@ -3,6 +3,7 @@ package entities;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,46 +17,42 @@ public class Hobby implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @Column(length = 50)
+    private String name;
 
-    private String hobbyName;
-    private String hobbyDescription;
-    
+    private String linkWiki;
+
+    private String underCathegory;
+
+    private String type;
+
     @ManyToMany
     private List<Person> persons;
-    
-     public Hobby() {
+
+    public Hobby() {
     }
 
-    public Hobby(String hobbyName, String hobbyDescription) {
-        this.hobbyName = hobbyName;
-        this.hobbyDescription = hobbyDescription;
-        persons = new ArrayList<>();
-    }
-     
-    public int getId() {
-        return id;
+    public Hobby(String wikiLink, String underCathegory, String type) {
+        this.linkWiki = linkWiki;
+        this.underCathegory = underCathegory;
+        this.type = type;
+        this.persons = new ArrayList<>();
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public String getName() {
+        return name;
     }
 
-    public String getHobbyName() {
-        return hobbyName;
+    public String getLinkWiki() {
+        return linkWiki;
     }
 
-    public void setHobbyName(String hobbyName) {
-        this.hobbyName = hobbyName;
+    public String getUnderCathegory() {
+        return underCathegory;
     }
 
-    public String getHobbyDescription() {
-        return hobbyDescription;
-    }
-
-    public void setHobbyDescription(String hobbyDescription) {
-        this.hobbyDescription = hobbyDescription;
+    public String getType() {
+        return type;
     }
 
     public List<Person> getPersons() {
@@ -65,7 +62,5 @@ public class Hobby implements Serializable {
     public void setPersons(List<Person> persons) {
         this.persons = persons;
     }
-
-   
 
 }

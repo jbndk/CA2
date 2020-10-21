@@ -62,6 +62,12 @@ public class Person implements Serializable {
             phone.setPerson(this);
         }
     }
+
+    public List<Hobby> getHobbies() {
+        return hobbies;
+    }
+    
+    
     
     public void addHobby(Hobby hobby) {
         if (hobby != null) {

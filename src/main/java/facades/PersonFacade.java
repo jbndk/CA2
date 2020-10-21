@@ -58,7 +58,7 @@ public class PersonFacade {
             TypedQuery<Person> query = em.createQuery("SELECT p FROM Person p WHERE p.id = (SELECT h.person.id FROM Phone h WHERE h.number = :phone)", Person.class);
             query.setParameter("phone", phone);
             Person person = query.getSingleResult();
-            return new PersonDTO(person.getFirstName(), person.getLastname(), person.getAddress().getStreet());
+            return new PersonDTO(person.getFirstName(),person.getLastname(),person.getAddress().getStreet(),person.getAddress().getCityinfo().getZipCode());
         } finally {
             em.close();
         }

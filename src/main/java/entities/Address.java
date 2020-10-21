@@ -38,6 +38,12 @@ public class Address implements Serializable {
         this.additionalInfo = additionalInfo;
     }
 
+    public Address(String street) {
+        this.street = street;
+    }
+
+    
+    
     public CityInfo getCityinfo() {
         return cityinfo;
     }
