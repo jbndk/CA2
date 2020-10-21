@@ -28,7 +28,7 @@ public class Tester {
 
         PersonDTO pdto1 = new PersonDTO("bg@ms.com", "Bill", "Gates", "Strandvejen 1", "2900", "Skak", 1234);
 
-        //FACADE.addPerson(pdto1);
+        FACADE.addPerson(pdto1);
         /*
         Long antal = FACADE2.getCityCount();
         System.out.println(antal);
@@ -41,7 +41,7 @@ public class Tester {
         em.persist(p1);
         em.persist(p2);
         em.getTransaction().commit();
-         */
+         
         TypedQuery<Phone> q1 = em.createQuery("SELECT p FROM Phone p", Phone.class);
 
         List<Phone> phones = q1.getResultList();
@@ -59,7 +59,7 @@ public class Tester {
         PersonDTO pdto2 = FACADE.getPersonByPhone(7777);
 
         System.out.println("First name by phone: " + pdto2.getfName() + ". Address: " + pdto2.getStreet());
-
+        */
     }
 
 }
