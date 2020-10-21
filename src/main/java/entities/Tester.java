@@ -28,11 +28,10 @@ public class Tester {
 
         PersonDTO pdto1 = new PersonDTO("bg@ms.com", "Bill", "Gates", "Strandvejen 1", "2900", "Skak", 1234);
 
-        FACADE.addPerson(pdto1);
+        //FACADE.addPerson(pdto1);
         /*
         Long antal = FACADE2.getCityCount();
         System.out.println(antal);
-
         CityInfosDTO cities = FACADE2.getAllCities();
         
         cities.getAll().stream().forEach(System.out::println);
