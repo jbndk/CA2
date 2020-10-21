@@ -19,7 +19,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 
-@Path("person")
+@Path("/person")
 public class PersonResource {
 
     private static final EntityManagerFactory EMF = EMF_Creator.createEntityManagerFactory();
@@ -35,6 +35,15 @@ public class PersonResource {
     public String serverIsUp() {
         return "{\"msg\":\"API is running\"}";
     }
+    
+    @Path("/phone/{phoneNumber}")
+    @GET
+    @Produces({MediaType.APPLICATION_JSON})
+    public String getPersonByPhone(@PathParam("phoneNumber") int id ) throws PersonNotFoundException   {
+        PersonDTO personDTO = FACADE.getPersonByPhone(id);
+        return GSON.toJson(personDTO);
+    }
+    
     /*
     @Path("count")
     @GET
