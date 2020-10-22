@@ -4,6 +4,7 @@ import dto.PersonDTO;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import dto.PersonsDTO;
+import entities.Person;
 import exceptions.MissingInputException;
 import exceptions.PersonNotFoundException;
 import utils.EMF_Creator;
@@ -43,6 +44,17 @@ public class PersonResource {
     public String getPersonByPhone(@PathParam("phoneNumber") int id ) throws PersonNotFoundException   {
         PersonDTO personDTO = FACADE.getPersonByPhone(id);
         return GSON.toJson(personDTO);
+    }
+    
+    @PUT
+    @Path("/{id}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public String editPersonById(@PathParam("id") int id, String person)
+    {
+        Person p = GSON.fromJson(person, Person.class);
+        PersonDTO editedPerson = FACADE.editPerson(p);
+        return GSON.toJson(editedPerson);
     }
     
     @GET

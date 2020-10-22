@@ -17,9 +17,10 @@ import utils.EMF_Creator;
 
 @Disabled
 public class PersonFacadeTest {
+
     private static EntityManagerFactory emf;
     private static PersonFacade facade;
-    
+
     /*
       @BeforeAll
     public static void setUpClass() {
@@ -80,7 +81,17 @@ public class PersonFacadeTest {
         PersonsDTO actual = facade.getAllPersonsByHobby("Skiing");
         int expQty = 2;
         assertEquals(expQty, actual.getAll().size());
-
+        
+    }
+    
+        @Test
+//           public void testEditPerson(){
+//      PersonDTO per1 = new PersonDTO("fjhotmail.com", "Frank", "Jensen", "fgh");
+//                per1.setlName("Hansen");
+//          PersonDTO p1New = facade.editPerson(per1);
+//          assertEquals(p1New.getlName(), per1.getlName());
+//         assertNotEquals(per1.getlName(),"Jensen");
+//        }
        
     }*/
 }
