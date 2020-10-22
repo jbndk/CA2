@@ -19,6 +19,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 
 @Path("/person")
@@ -62,7 +63,14 @@ public class PersonResource {
     @Produces(MediaType.APPLICATION_JSON)
     public String getAllPersonsByHobby(@PathParam("hobby") String hobby) throws MissingInputException {
         PersonsDTO pdtoList = FACADE.getAllPersonsByHobby(hobby);
-        return GSON.toJson(pdtoList);
+        return GSON.toJson(pdtoList.getAll());
+    }
+    
+    @Path("/all")
+    @GET
+    @Produces({MediaType.APPLICATION_JSON})
+    public Response getAll() {
+       return Response.ok().entity(GSON.toJson(FACADE.getAllPersons())).build();
     }
     
     /*
@@ -71,7 +79,6 @@ public class PersonResource {
     @Produces({MediaType.APPLICATION_JSON})
     public String getPersonCount() {
         long count = FACADE.getPersonCount();
-
         return "{\"count\":"+count+"}";  //Done manually so no need for a DTO
     }
     
@@ -81,17 +88,7 @@ public class PersonResource {
     public String getById(@PathParam("id") int id) throws PersonNotFoundException{
         PersonDTO p = FACADE.getPerson(id);
         return GSON.toJson(p);
-    }
-    
-    @Path("all")
-    @GET
-    @Produces({MediaType.APPLICATION_JSON})
-    public String getAll() {
-        PersonsDTO p = FACADE.getAllPersons();
-        return GSON.toJson(p);
-        
-    }
-    
+    }  
     
     @POST
     @Consumes({MediaType.APPLICATION_JSON})
