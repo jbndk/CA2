@@ -25,6 +25,7 @@ import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
 import org.junit.jupiter.api.AfterAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
@@ -138,6 +139,19 @@ public class PersonResourceTest {
                 .statusCode(HttpStatus.OK_200.getStatusCode())
                 .body("msg", equalTo("API is running"));
     }
+    
+    @Test
+    public void getPersonByPhone() {
+        given()
+                .contentType(ContentType.JSON)
+                        .get("person/phone/12345678")
+                        .then()
+                        .body("fName", equalTo("Mette"))
+                        .body("lName", equalTo("Frederiksen"))
+                        .body("street", equalTo("Nørrebrogade 1"))
+                        .body("zip", equalTo("2200"));
+    }
+    
         /*
 
     @Test
