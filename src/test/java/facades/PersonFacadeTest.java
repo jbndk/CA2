@@ -7,6 +7,7 @@ import entities.CityInfo;
 import entities.Hobby;
 import entities.Person;
 import entities.Phone;
+import exceptions.MissingInputException;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import org.junit.jupiter.api.AfterAll;
@@ -88,6 +89,34 @@ public class PersonFacadeTest {
         PersonsDTO actual = facade.getAllPersonsByHobby("Skiing");
         int expQty = 2;
         assertEquals(expQty, actual.getAll().size());
+
+    }
+    
+    public void testAddPerson() throws MissingInputException {
+
+        String email = "bg@ms.com";
+        String fName = "Bill";
+        String lName = "Gates";
+        String street = "Strandvejen 1";
+        String zip = "2820";
+        String hobby = "Tennis";
+        int telno = 1234;
+
+        EntityManagerFactory _emf = null;
+        PersonFacade instance = PersonFacade.getPersonFacade(_emf);
+
+        PersonDTO pdto1 = new PersonDTO(email, fName, lName, street, zip, hobby, telno);
+        PersonDTO result = instance.addPerson(pdto1);
+
+        PersonDTO expResult = new PersonDTO("bg@ms.com", "Bill", "Gates", "Strandvejen 1", "2820", "Tennis", 1234);
+
+        assertEquals(expResult.getEmail(), result.getEmail());
+        assertEquals(expResult.getFname(), result.getFname());
+        assertEquals(expResult.getlName(), result.getlName());
+        assertEquals(expResult.getStreet(), result.getStreet());
+        assertEquals(expResult.getZip(), result.getZip());
+        //assertEquals(expResult.getHobbyName(), result.getHobbyName());
+        //assertEquals(expResult.getPhNumber(), result.getPhoneNos());
 
     }
 
