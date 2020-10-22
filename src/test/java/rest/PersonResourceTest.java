@@ -153,14 +153,14 @@ public class PersonResourceTest {
                         .body("zip", equalTo("2200"));
     }
     
-//     @Test
-//    public void testGetPersonsByHobby() {
-//        given()
-//                .contentType("application/json")
-//                .get("/persons/hobby/" + h1.getName()).then()
-//                .assertThat()
-//                .statusCode(HttpStatus.OK_200.getStatusCode());
-//    }
+     @Test
+    public void testGetPersonsByHobby() {
+        given()
+                .contentType("application/json")
+                .get("/person/hobby/" + h1.getName()).then()
+                .assertThat()
+                .statusCode(HttpStatus.OK_200.getStatusCode());
+    }
     
         /*
 
