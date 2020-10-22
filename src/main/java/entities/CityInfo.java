@@ -19,17 +19,18 @@ import javax.persistence.OneToMany;
  */
 @Entity
 @NamedQueries({
-@NamedQuery(name = "CityInfo.getAllRows", query = "SELECT c from CityInfo c")})
+    @NamedQuery(name = "CityInfo.deleteAllRows", query = "DELETE from CityInfo"),
+    @NamedQuery(name = "CityInfo.getAllRows", query = "SELECT c from CityInfo c")})
 public class CityInfo implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @Column(length = 4)
     private String zipCode;
-    @Column(length=35)
+    @Column(length = 35)
     private String city;
-    
-    @OneToMany(mappedBy = "cityinfo" , cascade = CascadeType.PERSIST)
+
+    @OneToMany(mappedBy = "cityinfo", cascade = CascadeType.PERSIST)
     List<Address> addresses;
 
     public CityInfo() {
@@ -52,7 +53,7 @@ public class CityInfo implements Serializable {
 
     public void addAddress(Address address) {
         this.addresses.add(address);
-        if(address != null) {
+        if (address != null) {
             address.setCityinfo(this);
         }
     }
@@ -61,6 +62,4 @@ public class CityInfo implements Serializable {
         return addresses;
     }
 
-
-    
 }
