@@ -90,11 +90,11 @@ public class PersonFacade {
             CityInfo cityinfo = query1.getSingleResult();
             address.setCityinfo(cityinfo);
             p.setAddress(address);
-            
+
             TypedQuery<Hobby> query2 = em.createQuery("Select h from Hobby h where h.name = :name", Hobby.class);
             query2.setParameter("name", personDTO.getHobbyName());
             Hobby hobby = query2.getSingleResult();
-            
+
             p.addHobby(hobby);
 
             p.addTelNo(new Phone(personDTO.getPhNumber()));
@@ -108,4 +108,35 @@ public class PersonFacade {
             em.close();
         }
     }
+
+    public PersonDTO editPerson(Person p) {
+        EntityManager em = getEntityManager();
+        try {
+            Person person = em.find(Person.class, p.getId());
+            PersonDTO pdto = null;
+
+            person.setFirstName(p.getFirstName());
+            person.setLastname(p.getLastname());
+            person.setEmail(p.getEmail());
+            if (person.getAddress() != null) {
+                person.setAddress(p.getAddress());
+            }
+            if (person.getHobbies() != null) {
+
+                {
+                    p.getHobbies();
+                }
+            }
+
+            em.getTransaction().begin();
+            em.merge(person);
+            em.getTransaction().commit();
+            pdto = new PersonDTO(person);
+            return pdto;
+        } finally {
+            em.close();
+        }
+
+    }
+
 }
