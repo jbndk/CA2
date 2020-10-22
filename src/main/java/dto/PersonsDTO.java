@@ -25,5 +25,5 @@ import java.util.List;
    
     public List<PersonDTO> getAll() {
         return all;
-    }
+    }    
  }

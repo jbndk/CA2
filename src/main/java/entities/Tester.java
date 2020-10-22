@@ -21,10 +21,20 @@ public class Tester {
     private static final PersonFacade FACADE = PersonFacade.getPersonFacade(EMFC);
 
     public static void main(String[] args) {
-
+        
+        
+        
+        
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("pu");
 
         EntityManager em = emf.createEntityManager();
+        
+        PersonsDTO pdto = FACADE.getAllPersons();
+        pdto.getAll().forEach(p -> {
+            System.out.println("Person first name: " + p.getFname());
+        });
+        
+        /*
 
         PersonDTO pdto1 = new PersonDTO("bg@ms.com", "Bill", "Gates", "Strandvejen 1", "2900", "Skak", 1234);
         PersonDTO pdto2 = new PersonDTO("hans@ms.com", "Hans", "Smith", "Strandvejen 48", "2100", "Skak", 1122);
@@ -44,7 +54,7 @@ public class Tester {
             System.out.println("Persons with hobby ASTROLOGI: " + p.getfName());
         });
         
-        
+        */
         
         /*
         Long antal = FACADE2.getCityCount();
