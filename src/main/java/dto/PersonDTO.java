@@ -18,6 +18,14 @@ public class PersonDTO {
     private int phNumber;
     private List<Hobby>hobbies;
 
+    public List<Hobby> getHobbies() {
+        return hobbies;
+    }
+
+    public void setHobbies(List<Hobby> hobbies) {
+        this.hobbies = hobbies;
+    }
+
     public PersonDTO(String fName, String lName,String street, String zip) {
         this.fName = fName;
         this.lName = lName;

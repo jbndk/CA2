@@ -33,10 +33,10 @@ public class Tester {
         pdto.getAll().forEach(p -> {
             System.out.println("Person first name: " + p.getFname());
         });
-        
-        /*
 
-        PersonDTO pdto1 = new PersonDTO("bg@ms.com", "Bill", "Gates", "Strandvejen 1", "2900", "Skak", 1234);
+        PersonDTO pdto1 = new PersonDTO("bg@ms.com", "Thrill", "Gates", "Strandvejen 1", "2900", "Skak", 1234);
+        PersonDTO pdto1NewChanges = new PersonDTO("bg@ms.com", "Torben", "Chris", "Munkedal 1", "2850", "Jonglering", 1234);
+        
         PersonDTO pdto2 = new PersonDTO("hans@ms.com", "Hans", "Smith", "Strandvejen 48", "2100", "Skak", 1122);
         PersonDTO pdto3 = new PersonDTO("bente@ms.com", "Bente", "Jensen", "Byvej 3", "2800", "Astrologi", 3344);
 
@@ -44,6 +44,18 @@ public class Tester {
         FACADE.addPerson(pdto2);
         FACADE.addPerson(pdto3);
         
+        Person person = new Person();
+        person.setFirstName(pdto1NewChanges.getFname());
+        person.setLastname(pdto1NewChanges.getlName());
+        person.setEmail(pdto1NewChanges.getEmail());
+        Address address = new Address(pdto1NewChanges.getStreet(),pdto1NewChanges.getZip());
+        
+        person.setAddress(address);
+        PersonDTO result = FACADE.editPerson(1,pdto1NewChanges);
+        
+    }
+        
+         /*
         PersonsDTO persons = FACADE.getAllPersonsByHobby("Skak");
         persons.getAll().forEach(p -> {
             System.out.println("Persons with hobby SKAK: " + p.getfName());
@@ -89,4 +101,4 @@ public class Tester {
         */
     }
 
-}
+

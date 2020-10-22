@@ -40,6 +40,7 @@ public class PersonFacade {
         return emf.createEntityManager();
     }
 
+       // Det skal være en List<PersonDTO>. Det giver ikke mening at oprettee en ny Person(s)DTO entitet.
     public PersonsDTO getAllPersons() {
         EntityManager em = getEntityManager();
         try {
@@ -66,6 +67,7 @@ public class PersonFacade {
         }
     }
 
+    // Det skal være en List<PersonDTO>. Det giver ikke mening at oprette en ny Person(s)DTO entitet.
     public PersonsDTO getAllPersonsByHobby(String hobby) {
         EntityManager em = getEntityManager();
         try {
@@ -109,22 +111,26 @@ public class PersonFacade {
         }
     }
 
-    public PersonDTO editPerson(Person p) {
+    public PersonDTO editPerson(int id, PersonDTO personDTO) {
         EntityManager em = getEntityManager();
         try {
-            Person person = em.find(Person.class, p.getId());
+            Person person = em.find(Person.class, id);
             PersonDTO pdto = null;
 
-            person.setFirstName(p.getFirstName());
-            person.setLastname(p.getLastname());
-            person.setEmail(p.getEmail());
-            if (person.getAddress() != null) {
-                person.setAddress(p.getAddress());
+            person.setFirstName(personDTO.getfName());
+            person.setLastname(personDTO.getlName());
+            person.setEmail(personDTO.getEmail());
+            if (personDTO.getStreet() != null) {             
+                Address address = new Address(personDTO.getStreet());
+                TypedQuery<CityInfo> query1 = em.createQuery("Select c from CityInfo c where c.zipCode = :zip", CityInfo.class);
+                query1.setParameter("zip", personDTO.getZip());
+                CityInfo cityinfo = query1.getSingleResult();
+                address.setCityinfo(cityinfo);
+                person.setAddress(address);           
             }
-            if (person.getHobbies() != null) {
-
-                {
-                    p.getHobbies();
+            if (personDTO.getHobbies() != null) {               
+                for (int i = 0; i < personDTO.getHobbies().size(); i++) {
+                    person.addHobby(personDTO.getHobbies().get(i));
                 }
             }
 

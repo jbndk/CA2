@@ -53,8 +53,8 @@ public class PersonResource {
     @Produces(MediaType.APPLICATION_JSON)
     public String editPersonById(@PathParam("id") int id, String person)
     {
-        Person p = GSON.fromJson(person, Person.class);
-        PersonDTO editedPerson = FACADE.editPerson(p);
+        PersonDTO p = GSON.fromJson(person, PersonDTO.class);
+        PersonDTO editedPerson = FACADE.editPerson(id, p);
         return GSON.toJson(editedPerson);
     }
     
