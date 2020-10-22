@@ -30,7 +30,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 //Uncomment the line below, to temporarily disable this test
-@Disabled
+//@Disabled
 
 public class PersonResourceTest {
 
@@ -107,8 +107,11 @@ public class PersonResourceTest {
         p3.addTelNo(ph3);
         try {
             em.getTransaction().begin();
+            em.createNamedQuery("Hobby.deleteAllRows").executeUpdate();
+            em.createNamedQuery("Phone.deleteAllRows").executeUpdate();
             em.createNamedQuery("Person.deleteAllRows").executeUpdate();
             em.createNamedQuery("Address.deleteAllRows").executeUpdate();
+            em.createNamedQuery("CityInfo.deleteAllRows").executeUpdate();
             em.persist(p1);
             em.persist(p2);
             em.persist(p3);
@@ -135,6 +138,7 @@ public class PersonResourceTest {
                 .statusCode(HttpStatus.OK_200.getStatusCode())
                 .body("msg", equalTo("API is running"));
     }
+        /*
 
     @Test
     public void testCount() throws Exception {
@@ -164,7 +168,7 @@ public class PersonResourceTest {
         assertThat(personsDTOs, containsInAnyOrder(p1DTO, p2DTO, p3DTO));
     }
 
-    /*
+
     @Test
     public void addPerson() {
         given()
