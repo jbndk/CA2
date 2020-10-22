@@ -41,8 +41,8 @@ public class PersonResource {
     @Path("/phone/{phoneNumber}")
     @GET
     @Produces({MediaType.APPLICATION_JSON})
-    public String getPersonByPhone(@PathParam("phoneNumber") int id ) throws PersonNotFoundException   {
-        PersonDTO personDTO = FACADE.getPersonByPhone(id);
+    public String getPersonByPhone(@PathParam("phoneNumber") int phone ) throws PersonNotFoundException   {
+        PersonDTO personDTO = FACADE.getPersonByPhone(phone);
         return GSON.toJson(personDTO);
     }
     

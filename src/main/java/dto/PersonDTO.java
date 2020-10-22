@@ -21,7 +21,6 @@ public class PersonDTO {
     public PersonDTO(String fName, String lName,String street, String zip) {
         this.fName = fName;
         this.lName = lName;
-        this.phNumber = phNumber;
         this.street = street;
         this.zip = zip;
     }
