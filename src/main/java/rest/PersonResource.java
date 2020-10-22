@@ -73,6 +73,15 @@ public class PersonResource {
        return Response.ok().entity(GSON.toJson(FACADE.getAllPersons())).build();
     }
     
+        @POST
+    @Consumes({MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_JSON})
+    public String addPerson(String person) throws MissingInputException {
+        PersonDTO p = GSON.fromJson(person, PersonDTO.class);
+        PersonDTO newP = FACADE.addPerson(p);
+        return GSON.toJson(newP);
+    }
+    
     /*
     @Path("count")
     @GET
@@ -89,17 +98,6 @@ public class PersonResource {
         PersonDTO p = FACADE.getPerson(id);
         return GSON.toJson(p);
     }  
-    
-    @POST
-    @Consumes({MediaType.APPLICATION_JSON})
-    @Produces({MediaType.APPLICATION_JSON})
-    public String addPerson(String person) throws MissingInputException {
-        PersonDTO p = new PersonDTO("bg@ms.com","Bill","Gates","Strandvejen 1","2900","Skak",1234);
-        //PersonDTO p = GSON.fromJson(person, PersonDTO.class);
-        PersonDTO newP = FACADE.addPerson(p);
-        return GSON.toJson(newP);
-    }
-    
     
     
     @DELETE

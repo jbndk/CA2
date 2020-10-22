@@ -85,15 +85,13 @@ public class PersonFacade {
     public PersonDTO addPerson(PersonDTO personDTO) {
         EntityManager em = emf.createEntityManager();
         try {
-            Person p = new Person(personDTO.getfName(), personDTO.getlName(), personDTO.getEmail());
-            // TODO: Bør refaktoreres ud i en ny metode, da koden vil blive genbrugt flere steder.
+            Person p = new Person(personDTO.getEmail(), personDTO.getfName(), personDTO.getlName());
             Address address = new Address(personDTO.getStreet());
             TypedQuery<CityInfo> query1 = em.createQuery("Select c from CityInfo c where c.zipCode = :zip", CityInfo.class);
             query1.setParameter("zip", personDTO.getZip());
             CityInfo cityinfo = query1.getSingleResult();
             address.setCityinfo(cityinfo);
             p.setAddress(address);
-            //
 
             TypedQuery<Hobby> query2 = em.createQuery("Select h from Hobby h where h.name = :name", Hobby.class);
             query2.setParameter("name", personDTO.getHobbyName());
@@ -107,7 +105,8 @@ public class PersonFacade {
             em.persist(p);
             em.getTransaction().commit();
 
-            return new PersonDTO(p);
+            return new PersonDTO(p.getFirstName(), p.getLastname(), p.getAddress().getStreet(), p.getAddress().getCityinfo().getZipCode());
+
         } finally {
             em.close();
         }

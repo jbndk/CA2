@@ -92,6 +92,7 @@ public class PersonFacadeTest {
 
     }
     
+        @Test
     public void testAddPerson() throws MissingInputException {
 
         String email = "bg@ms.com";
@@ -108,16 +109,12 @@ public class PersonFacadeTest {
         PersonDTO pdto1 = new PersonDTO(email, fName, lName, street, zip, hobby, telno);
         PersonDTO result = instance.addPerson(pdto1);
 
-        PersonDTO expResult = new PersonDTO("bg@ms.com", "Bill", "Gates", "Strandvejen 1", "2820", "Tennis", 1234);
+        PersonDTO expResult = new PersonDTO("Bill", "Gates", "Strandvejen 1", "2820");
 
-        assertEquals(expResult.getEmail(), result.getEmail());
         assertEquals(expResult.getFname(), result.getFname());
         assertEquals(expResult.getlName(), result.getlName());
         assertEquals(expResult.getStreet(), result.getStreet());
         assertEquals(expResult.getZip(), result.getZip());
-        //assertEquals(expResult.getHobbyName(), result.getHobbyName());
-        //assertEquals(expResult.getPhNumber(), result.getPhoneNos());
-
     }
 
     /*
