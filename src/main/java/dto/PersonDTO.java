@@ -114,5 +114,4 @@ public class PersonDTO {
     public void setlName(String lName) {
         this.lName = lName;
     }
-
 }
