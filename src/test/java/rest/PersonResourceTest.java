@@ -25,18 +25,20 @@ import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
 import org.junit.jupiter.api.AfterAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 //Uncomment the line below, to temporarily disable this test
-@Disabled
+//@Disabled
 
 public class PersonResourceTest {
 
     private static final int SERVER_PORT = 7777;
     private static final String SERVER_URL = "http://localhost/api";
     private static Person p1, p2, p3;
+    private static Hobby h1, h2, h3;
 
     static final URI BASE_URI = UriBuilder.fromUri(SERVER_URL).port(SERVER_PORT).build();
     private static HttpServer httpServer;
@@ -77,7 +79,7 @@ public class PersonResourceTest {
         Address a1 = new Address("Nørrebrogade 1", "privat");
         CityInfo c1 = new CityInfo("2200", "København N");
         Phone ph1 = new Phone(12345678, "mobil");
-        Hobby h1 = new Hobby("wiki", "Akvarie", "fisk", "kedeligt");
+        h1 = new Hobby("wiki", "Akvarie", "fisk", "kedeligt");
 
         a1.setCityinfo(c1);
         p1.setAddress(a1);
@@ -88,7 +90,7 @@ public class PersonResourceTest {
         Address a2 = new Address("Amagerbrogade 1", "hjem");
         CityInfo c2 = new CityInfo("2300", "København S");
         Phone ph2 = new Phone(11223344, "hjemme");
-        Hobby h2 = new Hobby("link", "Dans", "indendørs", "whatever");
+        h2 = new Hobby("link", "Dans", "indendørs", "whatever");
 
         a2.setCityinfo(c2);
         p2.setAddress(a2);
@@ -99,7 +101,7 @@ public class PersonResourceTest {
         Address a3 = new Address("Esplanaden 33", "hjem");
         CityInfo c3 = new CityInfo("1015", "København K");
         Phone ph3 = new Phone(55446688, "kontor");
-        Hobby h3 = new Hobby("wikilink", "Domino", "spil", "stille");
+        h3 = new Hobby("wikilink", "Domino", "spil", "stille");
 
         a3.setCityinfo(c3);
         p3.setAddress(a3);
@@ -107,8 +109,11 @@ public class PersonResourceTest {
         p3.addTelNo(ph3);
         try {
             em.getTransaction().begin();
+            em.createNamedQuery("Hobby.deleteAllRows").executeUpdate();
+            em.createNamedQuery("Phone.deleteAllRows").executeUpdate();
             em.createNamedQuery("Person.deleteAllRows").executeUpdate();
             em.createNamedQuery("Address.deleteAllRows").executeUpdate();
+            em.createNamedQuery("CityInfo.deleteAllRows").executeUpdate();
             em.persist(p1);
             em.persist(p2);
             em.persist(p3);
@@ -135,6 +140,29 @@ public class PersonResourceTest {
                 .statusCode(HttpStatus.OK_200.getStatusCode())
                 .body("msg", equalTo("API is running"));
     }
+    
+    @Test
+    public void getPersonByPhone() {
+        given()
+                .contentType(ContentType.JSON)
+                        .get("person/phone/12345678")
+                        .then()
+                        .body("fName", equalTo("Mette"))
+                        .body("lName", equalTo("Frederiksen"))
+                        .body("street", equalTo("Nørrebrogade 1"))
+                        .body("zip", equalTo("2200"));
+    }
+    
+     @Test
+    public void testGetPersonsByHobby() {
+        given()
+                .contentType("application/json")
+                .get("/person/hobby/" + h1.getName()).then()
+                .assertThat()
+                .statusCode(HttpStatus.OK_200.getStatusCode());
+    }
+    
+        /*
 
     @Test
     public void testCount() throws Exception {
@@ -164,7 +192,7 @@ public class PersonResourceTest {
         assertThat(personsDTOs, containsInAnyOrder(p1DTO, p2DTO, p3DTO));
     }
 
-    /*
+
     @Test
     public void addPerson() {
         given()

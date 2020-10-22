@@ -23,7 +23,7 @@ public class Address implements Serializable {
     private String street;
     private String additionalInfo;
     
-    @ManyToOne( cascade = CascadeType.PERSIST )
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private CityInfo cityinfo;
     
     @OneToMany(mappedBy = "address" , cascade = CascadeType.PERSIST)

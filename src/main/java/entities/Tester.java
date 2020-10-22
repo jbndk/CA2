@@ -29,7 +29,35 @@ public class Tester {
 
         EntityManager em = emf.createEntityManager();
         
-        PersonsDTO pdto = FACADE.getAllPersons();
+        /*
+        //DATABASE SET-UP:
+        
+        PersonDTO p1 = new PersonDTO("bg@ms.com", "Bill", "Gates", "Strandvejen 1", "2900", "Skak", 1234);
+        PersonDTO p2 = new PersonDTO("hans@ms.com", "Hans", "Smith", "Strandvejen 48", "2100", "Skak", 1122);
+        PersonDTO p3 = new PersonDTO("bente@ms.com", "Bente", "Jensen", "Byvej 3", "2800", "Astrologi", 3344);
+        PersonDTO p4 = new PersonDTO("mariam1982@hotmail.com", "Maria", "Madsen", "Søvej 2", "4800", "Astrologi", 3344);
+        PersonDTO p5 = new PersonDTO("dave2004@hotmail.com", "David", "Eskelund", "Troelsgaardsvej 124B", "2820", "Astrologi", 3344);
+        PersonDTO p6 = new PersonDTO("kiarra1983@hotmail.com", "Kia", "Rasted", "Lysbygade 24", "4684", "Astrologi", 3344);
+        PersonDTO p7 = new PersonDTO("cornell1979@hotmail.com", "Chris", "Nelli", "Bygaden 1", "4700", "Astrologi", 3344);
+        PersonDTO p8 = new PersonDTO("fae1990@yahoo.com", "Frank", "Andersen", "Røvervænget 40", "2800", "Astrologi", 3344);
+        PersonDTO p9 = new PersonDTO("emmie19731988@yahoo.com", "Emmie", "Petersen", "Saksegade 3", "2100", "Astrologi", 3344);
+        PersonDTO p10 = new PersonDTO("mohammad_greenho@gmail.com", "Mohammad", "Jensen", "Øverupvej 583", "2880", "Astrologi", 3344);
+        
+        FACADE.addPerson(p1);
+        FACADE.addPerson(p2);
+        FACADE.addPerson(p3);
+        FACADE.addPerson(p4);
+        FACADE.addPerson(p5);
+        FACADE.addPerson(p6);
+        FACADE.addPerson(p7);
+        FACADE.addPerson(p8);
+        FACADE.addPerson(p9);
+        FACADE.addPerson(p10);
+        */
+        
+        
+        /*
+                PersonsDTO pdto = FACADE.getAllPersons();
         pdto.getAll().forEach(p -> {
             System.out.println("Person first name: " + p.getFname());
         });

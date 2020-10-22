@@ -21,7 +21,8 @@ import javax.persistence.OneToMany;
  */
 @Entity
 @NamedQueries({
-@NamedQuery(name = "Person.getAllRows", query = "SELECT p from Person p")})
+    @NamedQuery(name = "Person.deleteAllRows", query = "DELETE from Person"),
+    @NamedQuery(name = "Person.getAllRows", query = "SELECT p from Person p")})
 public class Person implements Serializable {
 
     private static final long serialVersionUID = 1L;
