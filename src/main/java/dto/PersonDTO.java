@@ -2,6 +2,7 @@ package dto;
 
 import entities.Hobby;
 import entities.Person;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,7 +17,7 @@ public class PersonDTO {
     private String zip;
     private String hobbyName;
     private int phNumber;
-    private List<Hobby>hobbies;
+    private List<HobbyDTO>hobbies;
 
     public PersonDTO(String fName, String lName,String street, String zip) {
         this.fName = fName;
@@ -42,7 +43,10 @@ public class PersonDTO {
         this.lName = p.getLastname();
         this.street = p.getAddress().getStreet();
         this.zip = p.getAddress().getCityinfo().getZipCode();
-        this.hobbies = p.getHobbies();
+        this.hobbies = new ArrayList();
+        for (Hobby hobby : p.getHobbies()) {
+            this.hobbies.add(new HobbyDTO(hobby));
+    }
     }
 
     public int getPhNumber() {
