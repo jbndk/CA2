@@ -19,11 +19,11 @@ public class PersonDTO {
     private int phNumber;
     private List<HobbyDTO>hobbies;
 
-    public List<Hobby> getHobbies() {
+    public List<HobbyDTO> getHobbies() {
         return hobbies;
     }
 
-    public void setHobbies(List<Hobby> hobbies) {
+    public void setHobbies(List<HobbyDTO> hobbies) {
         this.hobbies = hobbies;
     }
 

@@ -86,12 +86,14 @@ public class PersonFacade {
         EntityManager em = emf.createEntityManager();
         try {
             Person p = new Person(personDTO.getfName(), personDTO.getlName(), personDTO.getEmail());
+            // TODO: Bør refaktoreres ud i en ny metode, da koden vil blive genbrugt flere steder.
             Address address = new Address(personDTO.getStreet());
             TypedQuery<CityInfo> query1 = em.createQuery("Select c from CityInfo c where c.zipCode = :zip", CityInfo.class);
             query1.setParameter("zip", personDTO.getZip());
             CityInfo cityinfo = query1.getSingleResult();
             address.setCityinfo(cityinfo);
             p.setAddress(address);
+            //
 
             TypedQuery<Hobby> query2 = em.createQuery("Select h from Hobby h where h.name = :name", Hobby.class);
             query2.setParameter("name", personDTO.getHobbyName());
@@ -114,30 +116,36 @@ public class PersonFacade {
     public PersonDTO editPerson(int id, PersonDTO personDTO) {
         EntityManager em = getEntityManager();
         try {
-            Person person = em.find(Person.class, id);
+            Person personFromDb = em.find(Person.class, id);
             PersonDTO pdto = null;
-
-            person.setFirstName(personDTO.getfName());
-            person.setLastname(personDTO.getlName());
-            person.setEmail(personDTO.getEmail());
-            if (personDTO.getStreet() != null) {             
+            if (personFromDb == null) {
+                return pdto;
+            }
+         
+            personFromDb.setFirstName(personDTO.getfName());
+            personFromDb.setLastname(personDTO.getlName());
+            personFromDb.setEmail(personDTO.getEmail());
+            if (personDTO.getStreet() != null) {    
+                // TODO: Bør refaktoreres ud i en ny metode, da koden vil blive genbrugt flere steder
                 Address address = new Address(personDTO.getStreet());
                 TypedQuery<CityInfo> query1 = em.createQuery("Select c from CityInfo c where c.zipCode = :zip", CityInfo.class);
                 query1.setParameter("zip", personDTO.getZip());
                 CityInfo cityinfo = query1.getSingleResult();
                 address.setCityinfo(cityinfo);
-                person.setAddress(address);           
+                personFromDb.setAddress(address);  
+                //
             }
-            if (personDTO.getHobbies() != null) {               
+            if (personDTO.getHobbies() != null) {
+                // TODO: sørg for at der kun tilføjes nye hobbier.
                 for (int i = 0; i < personDTO.getHobbies().size(); i++) {
-                    person.addHobby(personDTO.getHobbies().get(i));
+                    personFromDb.addHobby( personDTO.getHobbies().get(i).MapToHobby());
                 }
             }
 
             em.getTransaction().begin();
-            em.merge(person);
+            em.merge(personFromDb);
             em.getTransaction().commit();
-            pdto = new PersonDTO(person);
+            pdto = new PersonDTO(personFromDb);
             return pdto;
         } finally {
             em.close();

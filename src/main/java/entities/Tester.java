@@ -56,14 +56,14 @@ public class Tester {
         */
         
         
-        /*
-                PersonsDTO pdto = FACADE.getAllPersons();
-        pdto.getAll().forEach(p -> {
-            System.out.println("Person first name: " + p.getFname());
-        });
+        
+//                PersonsDTO pdto = FACADE.getAllPersons();
+//        pdto.getAll().forEach(p -> {
+//            System.out.println("Person first name: " + p.getFname());
+//        });
 
         PersonDTO pdto1 = new PersonDTO("bg@ms.com", "Thrill", "Gates", "Strandvejen 1", "2900", "Skak", 1234);
-        PersonDTO pdto1NewChanges = new PersonDTO("bg@ms.com", "Torben", "Chris", "Munkedal 1", "2850", "Jonglering", 1234);
+        PersonDTO pdto1NewChanges = new PersonDTO("bg@ms.com", "Torben", "Chris", "Munkedal 1", "2850", "Surfing", 1234);
         
         PersonDTO pdto2 = new PersonDTO("hans@ms.com", "Hans", "Smith", "Strandvejen 48", "2100", "Skak", 1122);
         PersonDTO pdto3 = new PersonDTO("bente@ms.com", "Bente", "Jensen", "Byvej 3", "2800", "Astrologi", 3344);

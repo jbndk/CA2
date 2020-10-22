@@ -13,12 +13,16 @@ public class HobbyDTO {
     public HobbyDTO() {
     }
 
-    public HobbyDTO(Hobby h) {
-        
+    public HobbyDTO(Hobby h) {       
         this.name = h.getName();
         this.wikiLink = h.getLinkWiki();
         this.category = h.getUnderCathegory();
         this.type = h.getType();
+    }
+    
+    public Hobby MapToHobby(){
+        Hobby hobby = new Hobby(name,wikiLink,category,type);
+        return hobby;
     }
 
     public int getId() {
