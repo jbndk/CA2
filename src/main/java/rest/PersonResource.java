@@ -73,7 +73,7 @@ public class PersonResource {
        return Response.ok().entity(GSON.toJson(FACADE.getAllPersons())).build();
     }
     
-        @POST
+    @POST
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})
     public String addPerson(String person) throws MissingInputException {
