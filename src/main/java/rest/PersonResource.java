@@ -5,6 +5,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import dto.PersonsDTO;
 import entities.Person;
+import exceptions.InputError;
 import exceptions.MissingInputException;
 import exceptions.PersonNotFoundException;
 import utils.EMF_Creator;
@@ -76,7 +77,7 @@ public class PersonResource {
     @POST
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})
-    public String addPerson(String person) throws MissingInputException {
+    public String addPerson(String person) throws MissingInputException, InputError {
         PersonDTO p = GSON.fromJson(person, PersonDTO.class);
         PersonDTO newP = FACADE.addPerson(p);
         return GSON.toJson(newP);
