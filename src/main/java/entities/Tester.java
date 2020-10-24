@@ -62,16 +62,19 @@ public class Tester {
 //            System.out.println("Person first name: " + p.getFname());
 //        });
 
-        PersonDTO pdto1 = new PersonDTO("bg@ms.com", "Thrill", "Gates", "Strandvejen 1", "2900", "Skak", 1234);
-        PersonDTO pdto1NewChanges = new PersonDTO("bg@ms.com", "Torben", "Chris", "Munkedal 1", "2850", "Surfing", 1234);
+        PersonDTO pdto1 = new PersonDTO("bg@ms.com", "Thrill", "Gates", "Strandvejen 1", "stuen", "2900", "Skak", 1234, "privat");
+        PersonDTO pdto4 = new PersonDTO("bg@ms.com", "Torben", "Chris", "Munkedal 1", "B","2850", "Surfing", 1234, "kontor");
         
-        PersonDTO pdto2 = new PersonDTO("hans@ms.com", "Hans", "Smith", "Strandvejen 48", "2100", "Skak", 1122);
-        PersonDTO pdto3 = new PersonDTO("bente@ms.com", "Bente", "Jensen", "Byvej 3", "2800", "Astrologi", 3344);
+        PersonDTO pdto2 = new PersonDTO("hans@ms.com", "Hans", "Smith", "Strandvejen 48", "5.sal th", "2100", "Skak", 1122, "bil");
+        PersonDTO pdto3 = new PersonDTO("bente@ms.com", "Bente", "Jensen", "Byvej 3", "kælderen", "2900", "Astrologi", 3344, "hjem");
 
         FACADE.addPerson(pdto1);
         FACADE.addPerson(pdto2);
         FACADE.addPerson(pdto3);
+        FACADE.addPerson(pdto4);
         
+        
+        /*
         Person person = new Person();
         person.setFirstName(pdto1NewChanges.getFname());
         person.setLastname(pdto1NewChanges.getlName());
@@ -80,7 +83,7 @@ public class Tester {
         
         person.setAddress(address);
         PersonDTO result = FACADE.editPerson(1,pdto1NewChanges);
-        
+        */
     }
         
          /*
