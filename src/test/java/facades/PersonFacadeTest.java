@@ -92,30 +92,31 @@ public class PersonFacadeTest {
 
     }
     
-        @Test
-    public void testAddPerson() throws MissingInputException {
+    /*
+    @Test
+    public void testAddPerson() throws MissingInputException, InputError {
 
         String email = "bg@ms.com";
         String fName = "Bill";
         String lName = "Gates";
         String street = "Strandvejen 1";
+        String info = "5.th.";
         String zip = "2820";
         String hobby = "Tennis";
         int telno = 1234;
+        String descrip = "mobil";
 
-        EntityManagerFactory _emf = null;
-        PersonFacade instance = PersonFacade.getPersonFacade(_emf);
+        PersonDTO pdto1 = new PersonDTO(email, fName, lName, street, info, zip, hobby, telno, descrip);
+        PersonDTO result = facade.addPerson(pdto1);
 
-        PersonDTO pdto1 = new PersonDTO(email, fName, lName, street, zip, hobby, telno);
-        PersonDTO result = instance.addPerson(pdto1);
+        PersonDTO expResult = new PersonDTO("bg@ms.com","Bill", "Gates", "Strandvejen 1","5.th.", "2820","Tennis",1234,"mobil");
 
-        PersonDTO expResult = new PersonDTO("Bill", "Gates", "Strandvejen 1", "2820");
-
-        assertEquals(expResult.getFname(), result.getFname());
+        assertEquals(expResult.getfName(), result.getfName());
         assertEquals(expResult.getlName(), result.getlName());
         assertEquals(expResult.getStreet(), result.getStreet());
         assertEquals(expResult.getZip(), result.getZip());
     }
+    */
 
     /*
     @Test
