@@ -2,6 +2,8 @@ package entities;
 
 import dto.PersonDTO;
 import dto.PersonsDTO;
+import exceptions.InputError;
+import exceptions.MissingInputException;
 import facades.PersonFacade;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -20,7 +22,7 @@ public class Tester {
     private static final EntityManagerFactory EMFC = EMF_Creator.createEntityManagerFactory();
     private static final PersonFacade FACADE = PersonFacade.getPersonFacade(EMFC);
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws MissingInputException, InputError {
         
         
         
