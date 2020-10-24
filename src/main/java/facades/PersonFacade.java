@@ -7,6 +7,8 @@ import entities.CityInfo;
 import entities.Hobby;
 import entities.Person;
 import entities.Phone;
+import exceptions.InputError;
+import exceptions.MissingInputException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -82,15 +84,28 @@ public class PersonFacade {
         }
     }
 
-    public PersonDTO addPerson(PersonDTO personDTO) {
+    public PersonDTO addPerson(PersonDTO personDTO)throws MissingInputException, InputError {
+        if (personDTO.getfName().length() == 0 || (personDTO.getlName().length() == 0)) {
+            throw new MissingInputException("One or both names are missing");
+        }     
+        if (String.valueOf(personDTO.getZip()).length() != 4) {
+            throw new InputError("ZIP must be 4 letters");
+        }
         EntityManager em = emf.createEntityManager();
         try {
+            
             Person p = new Person(personDTO.getEmail(), personDTO.getfName(), personDTO.getlName());
-            Address address = new Address(personDTO.getStreet());
+            
+            Address address = new Address(personDTO.getStreet(),personDTO.getAdditInfo());
+            
             TypedQuery<CityInfo> query1 = em.createQuery("Select c from CityInfo c where c.zipCode = :zip", CityInfo.class);
             query1.setParameter("zip", personDTO.getZip());
             CityInfo cityinfo = query1.getSingleResult();
+            
             address.setCityinfo(cityinfo);
+            
+            address.addPerson(p);
+            
             p.setAddress(address);
 
             TypedQuery<Hobby> query2 = em.createQuery("Select h from Hobby h where h.name = :name", Hobby.class);
@@ -98,15 +113,14 @@ public class PersonFacade {
             Hobby hobby = query2.getSingleResult();
 
             p.addHobby(hobby);
-
-            p.addTelNo(new Phone(personDTO.getPhNumber()));
+            
+            p.addTelNo(new Phone(personDTO.getPhNumber(), personDTO.getDescrip()));
 
             em.getTransaction().begin();
             em.persist(p);
             em.getTransaction().commit();
-
-            return new PersonDTO(p.getFirstName(), p.getLastname(), p.getAddress().getStreet(), p.getAddress().getCityinfo().getZipCode());
-
+            
+            return new PersonDTO(p.getEmail(),p.getFirstName(),p.getLastname());
         } finally {
             em.close();
         }
