@@ -22,11 +22,11 @@ public class Address implements Serializable {
     private int id;
     private String street;
     private String additionalInfo;
-    
+
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private CityInfo cityinfo;
-    
-    @OneToMany(mappedBy = "address" , cascade = CascadeType.PERSIST)
+
+    @OneToMany(mappedBy = "address", cascade = CascadeType.PERSIST)
     List<Person> persons = new ArrayList<Person>();
 
     public Address() {
@@ -42,8 +42,6 @@ public class Address implements Serializable {
         this.street = street;
     }
 
-    
-    
     public CityInfo getCityinfo() {
         return cityinfo;
     }
@@ -51,12 +49,12 @@ public class Address implements Serializable {
     public void setCityinfo(CityInfo cityinfo) {
         this.cityinfo = cityinfo;
     }
-    
+
     public void addPerson(Person person) {
         this.persons.add(person);
-            if (person != null) {
-                person.setAddress(this);
-            }
+        if (person != null) {
+            person.setAddress(this);
+        }
     }
 
     public List<Person> getPersons() {
@@ -66,8 +64,7 @@ public class Address implements Serializable {
     public void setPersons(List<Person> persons) {
         this.persons = persons;
     }
-    
-    
+
     public String getStreet() {
         return street;
     }
@@ -91,5 +88,5 @@ public class Address implements Serializable {
     public void setId(int id) {
         this.id = id;
     }
-    
+
 }

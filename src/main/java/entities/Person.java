@@ -32,7 +32,7 @@ public class Person implements Serializable {
     private String email;
     private String firstName;
     private String lastname;
-    
+
     @OneToMany(mappedBy = "person", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     List<Phone> telNos = new ArrayList<>();
 
@@ -59,7 +59,7 @@ public class Person implements Serializable {
 
     public void addTelNo(Phone phone) {
         this.telNos.add(phone);
-        if(phone != null) {
+        if (phone != null) {
             phone.setPerson(this);
         }
     }
@@ -67,16 +67,14 @@ public class Person implements Serializable {
     public List<Hobby> getHobbies() {
         return hobbies;
     }
-    
-    
-    
+
     public void addHobby(Hobby hobby) {
         if (hobby != null) {
-        this.hobbies.add(hobby);
-        hobby.getPersons().add(this);
+            this.hobbies.add(hobby);
+            hobby.getPersons().add(this);
         }
     }
-    
+
     public String getEmail() {
         return email;
     }
@@ -92,8 +90,6 @@ public class Person implements Serializable {
     public void setAddress(Address address) {
         this.address = address;
     }
-    
-    
 
     public String getFirstName() {
         return firstName;
@@ -116,29 +112,4 @@ public class Person implements Serializable {
     }
 
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (int) id;
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Person)) {
-            return false;
-        }
-        Person other = (Person) object;
-        if (this.id != other.id) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "entities.Person[ id=" + id + " ]";
-    }
-    
 }
