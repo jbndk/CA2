@@ -12,7 +12,6 @@ import static io.restassured.RestAssured.given;
 import io.restassured.http.ContentType;
 import io.restassured.parsing.Parser;
 import java.net.URI;
-import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.ws.rs.core.UriBuilder;
@@ -177,38 +176,7 @@ public class PersonResourceTest {
 
 
     }
-
     
-
-    @Test
-    public void testCount() throws Exception {
-        given()
-                .contentType("application/json")
-                .get("/person/count").then()
-                .assertThat()
-                .statusCode(HttpStatus.OK_200.getStatusCode())
-                .body("count", equalTo(3));
-    }
-
-    @Test
-    public void getAllPersons() {
-        List<PersonDTO> personsDTOs;
-
-        personsDTOs = given()
-                .contentType("application/json")
-                .when()
-                .get("/person/all")
-                .then()
-                .extract().body().jsonPath().getList("all", PersonDTO.class);
-
-        PersonDTO p1DTO = new PersonDTO(p1);
-        PersonDTO p2DTO = new PersonDTO(p2);
-        PersonDTO p3DTO = new PersonDTO(p3);
-
-        assertThat(personsDTOs, containsInAnyOrder(p1DTO, p2DTO, p3DTO));
-    }
-
-
     @Test
     public void updatePerson() {
         PersonDTO person = new PersonDTO(p1);
@@ -226,31 +194,5 @@ public class PersonResourceTest {
                 .body("id", equalTo((int) person.getId()));
     }
 
-    @Test
-    public void testDelete() throws Exception {
-
-        PersonDTO person = new PersonDTO(p1);
-
-        given()
-                .contentType("application/json")
-                .delete("/person/" + person.getId())
-                .then()
-                .assertThat()
-                .statusCode(HttpStatus.OK_200.getStatusCode());
-
-        List<PersonDTO> personsDTOs;
-
-        personsDTOs = given()
-                .contentType("application/json")
-                .when()
-                .get("/person/all")
-                .then()
-                .extract().body().jsonPath().getList("all", PersonDTO.class);
-
-        PersonDTO p2DTO = new PersonDTO(p2);
-        PersonDTO p3DTO = new PersonDTO(p3);
-
-        assertThat(personsDTOs, containsInAnyOrder(p2DTO, p3DTO));
-
-    }*/
+*/
 }
