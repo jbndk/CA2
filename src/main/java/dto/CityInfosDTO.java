@@ -21,8 +21,5 @@ public class CityInfosDTO {
     public List<CityInfoDTO> getAll() {
         return allCities;
     }
-
-
-    
     
 }

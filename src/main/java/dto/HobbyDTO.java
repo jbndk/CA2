@@ -33,8 +33,6 @@ public class HobbyDTO {
         this.id = id;
     }
 
-    
-    
     public String getName() {
         return name;
     }

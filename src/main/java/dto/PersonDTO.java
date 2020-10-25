@@ -21,11 +21,9 @@ public class PersonDTO {
     private String hobbyName;
     private int phNumber;
     private String descrip;
-    
+
     private List<HobbyDTO> hobbies;
     private List<PhoneDTO> phones;
-
-
 
     public PersonDTO(String fName, String lName, String street, String zip) {
         this.fName = fName;
@@ -65,7 +63,7 @@ public class PersonDTO {
         for (Hobby hobby : p.getHobbies()) {
             this.hobbies.add(new HobbyDTO(hobby));
         }
-                this.phones = new ArrayList<>();
+        this.phones = new ArrayList<>();
         for (Phone ph : p.getTelNos()) {
             this.phones.add(new PhoneDTO(ph));
         }
@@ -94,8 +92,6 @@ public class PersonDTO {
     public void setPhones(List<PhoneDTO> phones) {
         this.phones = phones;
     }
-    
-    
 
     public int getPhNumber() {
         return phNumber;
@@ -160,7 +156,8 @@ public class PersonDTO {
     public void setlName(String lName) {
         this.lName = lName;
     }
-        public List<HobbyDTO> getHobbies() {
+
+    public List<HobbyDTO> getHobbies() {
         return hobbies;
     }
 

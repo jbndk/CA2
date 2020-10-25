@@ -17,7 +17,7 @@ public class PhoneDTO {
         this.number = number;
         this.description = description;
     }
-    
+
     public PhoneDTO(Phone phone) {
         this.id = phone.getId();
         this.number = phone.getNumber();
@@ -48,9 +48,4 @@ public class PhoneDTO {
         this.description = description;
     }
 
-    @Override
-    public String toString() {
-        return "PhoneDTO{" + "id=" + id + ", number=" + number + ", description=" + description + '}';
-    }
-    
 }
