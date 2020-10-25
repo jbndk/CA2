@@ -162,23 +162,23 @@ public class PersonResourceTest {
                 .statusCode(HttpStatus.OK_200.getStatusCode());
     }
     
-    /*
+
     @Test
     public void addPerson() {
         given()
                 .contentType(ContentType.JSON)
-                .body(new PersonDTO("bg@ms.com", "Bill", "Gates", "Strandvejen 1", "2900", "Skak", 1234))
+                .body(new PersonDTO("bg@ms.com", "Bill", "Gates", "Strandvejen 1", "B", "2900", "Skak", 1234,"mobil"))
                 .when()
                 .post("/person")
                 .then()
+                .body("email", equalTo("bg@ms.com"))
                 .body("fName", equalTo("Bill"))
-                .body("lName", equalTo("Gates"))
-                .body("street", equalTo("Strandvejen 1"))
-                .body("zip", equalTo("2900"));
+                .body("lName", equalTo("Gates"));
+
 
     }
 
-    
+    /*
 
     @Test
     public void testCount() throws Exception {
