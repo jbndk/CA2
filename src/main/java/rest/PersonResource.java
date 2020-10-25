@@ -22,43 +22,40 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-
 @Path("/person")
 public class PersonResource {
 
     private static final EntityManagerFactory EMF = EMF_Creator.createEntityManagerFactory();
-    
+
     //An alternative way to get the EntityManagerFactory, whithout having to type the details all over the code
     //EMF = EMF_Creator.createEntityManagerFactory(DbSelector.DEV, Strategy.CREATE);
-    
-    private static final PersonFacade FACADE =  PersonFacade.getPersonFacade(EMF);
+    private static final PersonFacade FACADE = PersonFacade.getPersonFacade(EMF);
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
-            
+
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public String serverIsUp() {
         return "{\"msg\":\"API is running\"}";
     }
-    
+
     @Path("/phone/{phoneNumber}")
     @GET
     @Produces({MediaType.APPLICATION_JSON})
-    public String getPersonByPhone(@PathParam("phoneNumber") int phone ) throws PersonNotFoundException   {
+    public String getPersonByPhone(@PathParam("phoneNumber") int phone) throws PersonNotFoundException {
         PersonDTO personDTO = FACADE.getPersonByPhone(phone);
         return GSON.toJson(personDTO);
     }
-    
+
     @PUT
     @Path("/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public String editPersonById(@PathParam("id") int id, String person)
-    {
+    public String editPersonById(@PathParam("id") int id, String person) {
         PersonDTO p = GSON.fromJson(person, PersonDTO.class);
         PersonDTO editedPerson = FACADE.editPerson(id, p);
         return GSON.toJson(editedPerson);
     }
-    
+
     @GET
     @Path("/hobby/{hobby}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -66,14 +63,14 @@ public class PersonResource {
         PersonsDTO pdtoList = FACADE.getAllPersonsByHobby(hobby);
         return GSON.toJson(pdtoList.getAll());
     }
-    
+
     @Path("/all")
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public Response getAll() {
-       return Response.ok().entity(GSON.toJson(FACADE.getAllPersons())).build();
+        return Response.ok().entity(GSON.toJson(FACADE.getAllPersons())).build();
     }
-    
+
     @POST
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})
@@ -82,34 +79,8 @@ public class PersonResource {
         PersonDTO newP = FACADE.addPerson(p);
         return GSON.toJson(newP);
     }
-    
+
     /*
-    @Path("count")
-    @GET
-    @Produces({MediaType.APPLICATION_JSON})
-    public String getPersonCount() {
-        long count = FACADE.getPersonCount();
-        return "{\"count\":"+count+"}";  //Done manually so no need for a DTO
-    }
-    
-    @Path("{id}")
-    @GET
-    @Produces({MediaType.APPLICATION_JSON})
-    public String getById(@PathParam("id") int id) throws PersonNotFoundException{
-        PersonDTO p = FACADE.getPerson(id);
-        return GSON.toJson(p);
-    }  
-    
-    
-    @DELETE
-    @Path("{id}")
-    @Produces({MediaType.APPLICATION_JSON})
-    public String deletePerson(@PathParam("id") int id) throws PersonNotFoundException {
-        PersonDTO pdel = FACADE.deletePerson(id);
-        return GSON.toJson(pdel);
-        
-    }
-    
     @PUT
     @Path("{id}")
     @Consumes({MediaType.APPLICATION_JSON})
@@ -120,5 +91,4 @@ public class PersonResource {
         PersonDTO newpdto = FACADE.editPerson(pdto);
         return GSON.toJson(newpdto);
     }*/
-    
 }
