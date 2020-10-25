@@ -162,7 +162,7 @@ public class PersonResourceTest {
                 .statusCode(HttpStatus.OK_200.getStatusCode());
     }
     
-
+    /*
     @Test
     public void addPerson() {
         given()
@@ -178,7 +178,7 @@ public class PersonResourceTest {
 
     }
 
-    /*
+    
 
     @Test
     public void testCount() throws Exception {
